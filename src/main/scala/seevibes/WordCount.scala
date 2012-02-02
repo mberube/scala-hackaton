@@ -1,15 +1,14 @@
 package seevibes
 
 import akka.actor.Actor
-import seevibes.HackatonProperties
-
+case object GetSize
+case object Get
+case class Add(word:String)
+case class WordCount(number:Int)
+case class Word(map:Map[String, Int])
 
 object WordCount {
-  case object GetSize
-  case object Get
-  case class Add(word:String)
-  case class WordCount(number:Int)
-  case class Word(map:Map[String, Int])
+
 
   class WordCounterActor extends Actor {
     private var words = Map.empty[String,  Int]
@@ -40,9 +39,14 @@ object WordCount {
     
     val words = actor !! Get
     println("current words is " + words)
-    
-    println(HackatonProperties.username())
+
+    HelloTwitter.fetchTwitter(HackatonProperties.username(), HackatonProperties.password(), Array("java", "lang:en"), actor)
+
+    Thread.sleep(30000)
 
     Actor.registry.shutdownAll()
+
+    Thread.sleep(100)
   }
+
 }
