@@ -1,6 +1,7 @@
 package seevibes
 
 import akka.actor.Actor
+import seevibes.HackatonProperties
 
 
 object WordCount {
@@ -39,6 +40,9 @@ object WordCount {
     
     val words = actor !! Get
     println("current words is " + words)
+    
+    println(HackatonProperties.username())
+
     Actor.registry.shutdownAll()
   }
 }

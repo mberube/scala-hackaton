@@ -1,3 +1,4 @@
 target/
 .idea/
 *.swp
+src/main/scala/config/config.properties
