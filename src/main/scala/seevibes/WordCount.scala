@@ -14,7 +14,7 @@ object WordCount {
     private var words = Map.empty[String,  Int]
     def receive = {
       case Add(word) =>
-        val count = words.get(word).getOrElse(0)
+        val count = words.getOrElse(word, 0)
         words = words + (word -> (count + 1))
 
       case GetSize =>
