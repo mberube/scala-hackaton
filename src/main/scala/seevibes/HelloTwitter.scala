@@ -21,6 +21,7 @@ object HelloTwitter {
 
     def onStatus(status: Status) {
       println("@" + status.getUser.getScreenName + " : " + status.getText)
+
       status.getText.split(" ").foreach(e => actor ! Add(e))
       val dictionary = actor !! Get
 
@@ -57,7 +58,7 @@ object HelloTwitter {
     stream.addConnectionLifeCycleListener(listener)
   }
 
-  def fetchTwitter(username: String, password: String, terms : Array[String], actor: ActorRef) {
+  def fetchTwitter(username: String, password: String, terms : Array[String], actor: ActorRef) = {
     val stream = buildStream(username, password)
     setupListeners(stream, actor)
 
@@ -65,6 +66,7 @@ object HelloTwitter {
     query.setIncludeEntities(true)
     query.track(terms)
     stream.filter(query)
+    stream
   }
 
   def main(args: Array[String]) {
